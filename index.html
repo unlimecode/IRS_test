@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IRS_test</title>
+	<link rel="stylesheet" type="text/css" href="IRS_test.css">
+</head>
+<body>
+	<div style="margin: 10vh 35vw;">
+	<button id="1" onclick="getAuth()">Обновить базу авторов</button>
+	<button id="2" onclick="getBook()">Обновить базу книг</button>
+	<br><br>
+	<div id="cssload-loader" class="cssload-loader">
+	<div class="cssload-inner cssload-one"></div>
+	<div class="cssload-inner cssload-two"></div>
+	<div class="cssload-inner cssload-three"></div>
+</div>
+		
+	<p id="outAuthor"></p>
+</div>
+
+	<script type="text/javascript">
+		document.getElementById('cssload-loader').style.display = 'none';
+		function getAuth() {
+			document.getElementById(1).innerHTML = "запрос отправлен, ожидайте...";
+			document.getElementById('cssload-loader').style.display = 'block';
+			var request = new XMLHttpRequest();
+			request.open('GET','db_author.php',true);
+
+request.addEventListener('readystatechange', function() {
+	
+  if ((request.readyState==4) && (request.status==200)) {
+    document.getElementById('outAuthor').innerHTML = request.responseText;
+    document.getElementById(1).innerHTML = "Обновить базу авторов";
+    document.getElementById('cssload-loader').style.display = 'none';
+    setTimeout(function() {
+    document.getElementById('outAuthor').innerHTML = "";
+  							}, 5000);
+  														}
+  	else {
+  		document.getElementById('outAuthor').innerHTML = request.readyState;
+  	}
+}); 
+request.send();
+		}
+
+function getBook() {
+			document.getElementById(2).innerHTML = "запрос отправлен, ожидайте...";
+			document.getElementById('cssload-loader').style.display = 'block';
+			var request = new XMLHttpRequest();
+			request.open('GET','db_book.php',true);
+
+request.addEventListener('readystatechange', function() {
+	
+  if ((request.readyState==4) && (request.status==200)) {
+    document.getElementById('outAuthor').innerHTML = request.responseText;
+    document.getElementById(2).innerHTML = "Обновить базу книг";
+    document.getElementById('cssload-loader').style.display = 'none';
+    setTimeout(function() {
+    document.getElementById('outAuthor').innerHTML = "";							
+ 							 }, 7000);
+  														}
+  	else {
+  		document.getElementById('outAuthor').innerHTML = request.readyState;
+  	}
+}); 
+request.send();
+		}
+	</script>
+
+
+
+</body>
+</html>
